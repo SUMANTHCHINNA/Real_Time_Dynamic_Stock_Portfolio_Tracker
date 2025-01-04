@@ -68,7 +68,7 @@ const getMetrics = async (req, res) => {
         const fl = list.join(',')
         // AMZN,AAPL
 
-        const url = `https://api.twelvedata.com/time_series?symbol=${fl}&interval=1h&outputsize=1&apikey=${process.env.APIKEY}`
+        const url = `https://api.twelvedata.com/time_series?symbol=${fl}&interval=1min&outputsize=1&apikey=${process.env.APIKEY}`
         fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -104,7 +104,7 @@ const getPrices = async (req, res) => {
         const fl = list.join(',');
         // AMZN,AAPL
 
-        const url = `https://api.twelvedata.com/time_series?symbol=${fl}&interval=1h&outputsize=1&apikey=${process.env.APIKEY}`;
+        const url = `https://api.twelvedata.com/time_series?symbol=${fl}&interval=1min&outputsize=1&apikey=${process.env.APIKEY}`;
         fetch(url)
             .then(response => {
                 if (!response.ok) {
