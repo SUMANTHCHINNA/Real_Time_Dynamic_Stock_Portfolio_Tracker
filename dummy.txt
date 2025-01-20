@@ -1,0 +1,52 @@
+const getMetrics = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+
+        // Fetch the list of stocks from MongoDB
+        const userStocks = await Stock.find({ userId: userId }).select('symbol');
+        const list = userStocks.map(stock => stock.symbol);
+
+        // ['AMZN', 'AAPL']
+        const fl = list.join(',');
+        // AMZN,AAPL
+
+        const url = https://api.twelvedata.com/time_series?symbol=${fl}&interval=1min&outputsize=1&apikey=${process.env.APIKEY};
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(HTTP error! status: ${response.status});
+                }
+                return response.json();
+            })
+            .then(async (data) => {
+                const stockPrices = {};
+                for (const [symbol, details] of Object.entries(data)) {
+                    if (details.values && details.values[0]) {
+                        stockPrices[symbol] = details.values[0].close;
+                    }
+                }
+
+                // Store stock prices in MongoDB (assuming StockPrice is the model for storing prices)
+                const stockDataPromises = Object.entries(stockPrices).map(([symbol, price]) => {
+                    return StockPrice.updateOne(
+                        { userId: userId, symbol: symbol },
+                        { $set: { price: price, lastUpdated: new Date() } },
+                        { upsert: true }
+                    );
+                });
+                console.log(stockDataPromises)
+                // Wait for all stock data to be saved
+                await Promise.all(stockDataPromises);
+
+                const p = await portfolioDistribution(userId);
+                res.status(200).json({ status: true, message: p });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                res.status(500).json({ status: false, message: error.message });
+            });
+    } catch (error) {
+        res.status(400).json({ status: false, message: error.message });
+    }
+};

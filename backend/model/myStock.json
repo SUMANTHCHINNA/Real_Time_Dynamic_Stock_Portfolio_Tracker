@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "678e514799a08830cf171a67",
+    "stockName": "IBM",
+    "symbol": "IBM",
+    "quantity": 2,
+    "buyPrice": 76,
+    "userId": "678c99d04e3a7c1f55428b91",
+    "__v": 0
+  },
+  {
+    "_id": "678e515d99a08830cf171a6a",
+    "stockName": "TESLA",
+    "symbol": "TSLA",
+    "quantity": 3,
+    "buyPrice": 88,
+    "userId": "678c99d04e3a7c1f55428b91",
+    "__v": 0
+  }
+]
