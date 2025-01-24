@@ -4,9 +4,9 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
 
 ---
 
-## Features
+# Features
 
-### Backend Features:
+## Backend Features:
 1. **User Management:**
    - User registration with username, email, and password.
    - Secure login with JWT-based authentication.
@@ -19,29 +19,26 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
    - Real-time portfolio metrics including total value, top-performing stock, and portfolio distribution.
    - Fetch real-time stock prices from external APIs.
 
-### Frontend Features:
+## Frontend Features:
 1. User-friendly interface for managing portfolio.
 2. Forms for adding, updating, and deleting stocks.
 3. Interactive dashboard displaying real-time metrics like total value, top-performing stock, and portfolio distribution.
 4. Authentication system for secure login and registration.
 
 
+## 1. **User Authentication (Register & Login)**
 
-### Frontend Features:
-
-### 1. **User Authentication (Register & Login)**
-
-#### **Register Page**
+### **Register Page**
 - Allows new users to register by providing a username, email, and password.
 - Sends the registration data to the backend to create a new user.
 - After successful registration, stores the JWT token and redirects to the **Dashboard**.
 
-#### **Login Page**
+### **Login Page**
 - Allows users to log in using their credentials(email and password).
 - Upon successful login, stores the JWT token in `localStorage` for authentication.
 - Redirects to the **Dashboard** after successful login.
 
-### 2. **Dashboard page**
+## 2. **Dashboard page**
 - Displays an overview of the user’s portfolio, including:
   - Total portfolio value.
   - Top-performing stocks.
@@ -49,9 +46,9 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
 - Accessible only for authenticated users.
 - Shows a summary of current stocks, investments, and key metrics such as total value,Top-performing stocks and Portfolio distribution.
 
-### 3. **Stock Management (My Stocks)**
+## 3. **Stock Management (My Stocks)**
 
-#### **MyStocks Page**
+### **MyStocks Page**
 - Displays a list of stocks owned by the user.
 - Each stock entry shows:
   - Stock name and symbol.
@@ -65,9 +62,9 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
 - Allows users to edit stock information (name, quantity, buy price).
 - Sends the updated data to the backend via the `PATCH` request to update the stock details.
 
-### 4. **Add New Stock**
+## 4. **Add New Stock**
 
-#### **AddStock Page**
+### **AddStock Page**
 - Allows users to add a new stock to their portfolio by entering:
   - Stock name.
   - symbol.
@@ -75,9 +72,9 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
   - Buy price.
 - Sends the data to the backend via the `POST` request to add the stock to the database.
 
-### 5. **Stock Prices**
+## 5. **Stock Prices**
 
-#### **StockPrices Page**
+### **StockPrices Page**
 - Displays real-time stock prices for a list of stocks fetched from an external API (e.g., Alpha Vantage, Yahoo Finance).
 - Each stock displays:
   - Symbol.
@@ -86,9 +83,9 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
   - Volume traded.
 - Allows users to check the latest prices for stocks in their portfolio.
 
-### 6. **Sidebar Navigation**
+## 6. **Sidebar Navigation**
 
-#### **Sidebar Component**
+### **Sidebar Component**
 - Provides navigation links to the various pages in the application:
   - Dashboard
   - MyStocks
@@ -98,9 +95,9 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
 
 ---
 
-## API Endpoints
+# API Endpoints
 
-### User Management APIs
+## User Management APIs
 
 1. **POST** `/api/user/register`
     - new user to register by providing username, email and password.
@@ -112,23 +109,25 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
          "email": "user@example.com",
          "password": "password123"
     }
+ **Response:**
 
-1.  **Response:**
-    * Success (200 OK)
-    ```json
+   - **Success (200 OK)**
+     ```json
+     {
+          "status": "true",
+          "message": "Registered successfully",
+          "token": "jwt_token"
+     }
+     ```
 
-    {
-         "status": "true",
-         "message": "Registered successfully",
-         "token": "jwt_token"
-    }
-    * Error (400 Bad Request)
+   - **Error (400 Bad Request)**
+     ```json
+     {
+          "status": "false",
+          "message": "User already exist please login"
+     }
+     ```
 
-    ```json
-    {
-         "status": "false",
-         "message": "User already exist please login"
-    }
 
 
 2. **POST** `/api/user/login`
@@ -139,34 +138,34 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
         "email": "user@example.com",
         "password": "password123"
     }
+**Response:**
 
-2.  **Response:**
-    * Success (200 OK)
-    ```json
+   - **Success (200 OK)**
+     ```json
+     {
+          "status": "true",
+          "message": "Login successful",
+          "token": "jwt_token"
+     }
+     ```
 
-    {
-         "status": "true",
-         "message": "Login successful",
-         "token": "jwt_token"
-    }
-    * Error (404 Unauthorized)
+   - **Error (404 Unauthorized)**
+     ```json
+     {
+          "status": "false",
+          "message": "Unauthorized access"
+     }
+     ```
 
-    ```json
-    {
-         "status": "false",
-         "message": "Unauthorized access"
-    }
+   - **Error (400 Bad Request)**
+     ```json
+     {
+          "status": "false",
+          "message": "All fields must be filled"
+     }
+     ```
 
-    * Error (400 Bad Request)
-
-    ```json
-    {
-         "status": "false",
-         "message": "All fields must be filled"
-    }
-
-
-### Stock Management APIs
+## Stock Management APIs
 
 3. **POST** `/api/stocks/add`
     - Adds a new stock to the user's portfolio.
@@ -177,175 +176,194 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
         "quantity": 5,
         "buyPrice": 150
     }
+**Response:**
 
-3.  **Response:**
-    * Success (200 OK)
-    ```json
-    {
-         "status": "true",
-         "message": "Stock added successfully"
-    }
+   - **Success (200 OK)**
+     ```json
+     {
+          "status": "true",
+          "message": "Stock added successfully"
+     }
+     ```
 
-    * Error (400 Bad Request)
+   - **Error (400 Bad Request)**
+     ```json
+     {
+          "status": "false",
+          "message": "Fill all details"
+     }
+     ```
 
-    ```json
-    {
-         "status": "false",
-         "message": "Fill all details"
-    }
+   - **Error (404 Unauthorized)**
+     ```json
+     {
+          "status": "false",
+          "message": "Unauthorized access"
+     }
+     ```
 
-    * Error (404 Unauthorized)
-
-    ```json
-    {
-         "status": "false",
-         "message": "Unauthorized access"
-    }
 
 
 4. **GET** `/api/stocks/myStocks`
     - Retrieves all stocks in the user's portfolio.
 
-4.  **Response:**
-    * Success (200 OK)
-    ```json
-    {
-      "status": true,
-      "message": [
-        {
-          "_id": "stock_id_1",
-          "stockName": "APPLE",
-          "symbol": "AAPL",
-          "quantity": 10,
-          "buyPrice": 150.00
-        }]
-    }
+**Response:**
 
-    * Error (404 Unauthorized)
-    ```json
-    {
-         "status": "false",
-         "message": "Unauthorized access"
-    }
+   - **Success (200 OK)**
+     ```json
+     {
+       "status": true,
+       "message": [
+         {
+           "_id": "stock_id_1",
+           "stockName": "APPLE",
+           "symbol": "AAPL",
+           "quantity": 10,
+           "buyPrice": 150.00
+         }
+       ]
+     }
+     ```
+
+   - **Error (404 Unauthorized)**
+     ```json
+     {
+          "status": "false",
+          "message": "Unauthorized access"
+     }
+     ```
+
 
 
 5. **PATCH** `/api/stocks/update/:stockId`
     - Updates the details (quantity or buy price) of an existing stock.
 
-5.  **Response:**
-    * Success (200 OK)
-    ```json
-    {
-         "status": "true",
-         "message": "Stock updated sucessfully"
-    }
+**Response:**
 
-    * Error (404 Unauthorized)
-    ```json
-    {
-         "status": "false",
-         "message": "Unauthorized access"
-    }
+   - **Success (200 OK)**
+     ```json
+     {
+          "status": "true",
+          "message": "Stock updated successfully"
+     }
+     ```
 
+   - **Error (404 Unauthorized)**
+     ```json
+     {
+          "status": "false",
+          "message": "Unauthorized access"
+     }
+     ```
 
 6. **DELETE** `/api/stocks/delete/:stockId`
     -  Deletes a stock from the user's portfolio.
 
-6.  **Response:**
-    * Success (200 OK)
-    ```json
-    {
-         "status": "true",
-         "message": "Stock deleted sucessfully"
-    }
+ **Response:**
 
-    * Error (404 Unauthorized)
-    ```json
-    {
-         "status": "false",
-         "message": "Unauthorized access"
-    }
+   - **Success (200 OK)**
+     ```json
+     {
+          "status": "true",
+          "message": "Stock deleted successfully"
+     }
+     ```
+
+   - **Error (404 Unauthorized)**
+     ```json
+     {
+          "status": "false",
+          "message": "Unauthorized access"
+     }
+     ```
 
 
-### Portfolio Metrics APIs
+## Portfolio Metrics APIs
 
 7. **GET** `/api/stock/metrics`
     - Calculates and returns key metrics of the user's portfolio such as total portfolio value, top-performing stock, and portfolio distribution based on real-time stock prices.
 
-7.  **Response:**
-    * Success (200 OK)
-    ```json
-    {
-      "status": true,
-      "message": [{
-        "totalPortfolioValue": 9060,
-        "topPerformingStock":{
-            "stockName": "Amazon",
-            "symbol": "AMZN",
-            "value": 6100
-        },
-        "portfolioDistribution":[
-            { "stockName": "Apple", "symbol": "AAPL", "percentage": 8.83 },
-            { "stockName": "Tesla", "symbol": "TSLA", "percentage": 23.84 },
-            { "stockName": "Amazon", "symbol": "AMZN", "percentage": 67.33 }
-        ]}]
-    }
+ **Response:**
 
-    * Error (404 - Unauthorized))
-    ```json
-    {
-         "status": "false",
-         "message": "User not found"
-    }
+   - **Success (200 OK)**
+     ```json
+     {
+       "status": true,
+       "message": [{
+         "totalPortfolioValue": 9060,
+         "topPerformingStock": {
+             "stockName": "Amazon",
+             "symbol": "AMZN",
+             "value": 6100
+         },
+         "portfolioDistribution": [
+             { "stockName": "Apple", "symbol": "AAPL", "percentage": 8.83 },
+             { "stockName": "Tesla", "symbol": "TSLA", "percentage": 23.84 },
+             { "stockName": "Amazon", "symbol": "AMZN", "percentage": 67.33 }
+         ]
+       }]
+     }
+     ```
+
+   - **Error (404 - Unauthorized)**
+     ```json
+     {
+          "status": "false",
+          "message": "User not found"
+     }
+     ```
 
 
 8. **GET** `/api/stock/showPrices`
     - Fetches real-time stock prices for a list of symbols in bulk.
 
-8.  **Response:**
-    * Success (200 OK)
-    ```json
-    {
-      "status": true,
-      "message": [
-        {
-          "symbol": "AAPL",
-          "open": 150.00,
-          "high": 155.00,
-          "low": 148.00,
-          "close": 152.00,
-          "volume": 100000
-        }
-        ]
-    }
+ **Response:**
 
-    * Error (500))
-    ```json
-    {
-         "status": "false",
-         "message": "Failed to fetch stock data"
-    }
+   - **Success (200 OK)**
+     ```json
+     {
+       "status": true,
+       "message": [
+         {
+           "symbol": "AAPL",
+           "open": 150.00,
+           "high": 155.00,
+           "low": 148.00,
+           "close": 152.00,
+           "volume": 100000
+         }
+       ]
+     }
+     ```
 
+   - **Error (500)**
+     ```json
+     {
+          "status": "false",
+          "message": "Failed to fetch stock data"
+     }
+     ```
 
 ## Calculation Metrics
-
-# Total Portfolio Value:
+```bash
+### Total Portfolio Value:
 # Formula:
-1. Total Value = ∑ ( Quantity × Real-Time Price )
+1. Total Value = ∑ ( Quantity × Real-Time Price )
 
-# Top-Performing Stock:
+### Top-Performing Stock:
 # Formula:
+2. Top Stock = max ( Quantity × Real-Time Price )
 
-2. Top Stock = max ( Quantity × Real-Time Price )
+### Portfolio Distribution:
 
-# Portfolio Distribution:
-# Formula:
+# Formula :
+3. Distribution (%) = ( Stock Value / Total Portfolio Value ) × 100
+```
 
-3. Distribution (%) = ( Stock Value / Total Portfolio Value ) × 100
+# Sample Calculation
 
-
-## sample Calculation
-# sample stock data :
+#### Sample Stock Data:
+```json
 [
   {
     "stockName": "Apple",
@@ -366,115 +384,144 @@ The **Stock Portfolio Tracker** is a web application that allows users to manage
     "buyPrice": 3000
   }
 ]
+```
 
-# Sample Real time stock prices
+#### Sample Real-Time Stock Prices
 
+```json
 {
   "AAPL": 160,
   "TSLA": 720,
   "AMZN": 3050
 }
+```
 
-# Total Portfolio Value:
+
+
+
+#### Total Portfolio Value
+
+```bash
 # Formula:
 1. Total Value = ∑ (Quantity × Real-Time Price)
 
-calculation:
-Apple = 5 * 160 = 800
-Tesla = 3 * 720 = 2160
-Amazon = 2 * 3050 = 6100
-Total Value = 800 + 2160 + 6100 = 9060
+# Calculation:
+- Apple = 5 * 160 = 800
+- Tesla = 3 * 720 = 2160
+- Amazon = 2 * 3050 = 6100
 
-# Top-Performing Stock:
+- Total Value = 800 + 2160 + 6100 = 9060
+```
+---
+
+#### Top-Performing Stock
+```bash
 # Formula:
-2. Top Stock = max ( Quantity × Real-Time Price )
+2. Top Stock = max ( Quantity × Real-Time Price )
 
-calculation:
-Apple: 800
-Tesla : 2160
-Amazon : 6100
-Top-Performing Stock: Amazon with value : 6100
+# Calculation:
+- Apple: 800
+- Tesla: 2160
+- Amazon: 6100
 
-#  Portfolio Distribution:
+- Top-Performing Stock: Amazon with value: 6100
+```
+---
+
+#### Portfolio Distribution
+```bash
 # Formula:
 3. Distribution (%) = (Stock Value ÷ Total Portfolio Value) × 100
 
-calculation:
-Apple : (800 / 9060) * 100 = 8.83%
-Tesla : (2160 / 9060) * 100 = 23.84%
-Amazon : (6100 / 9060) * 100 = 67.33%
+# Calculation:
+- Apple: (800 / 9060) * 100 = 8.83%
+- Tesla: (2160 / 9060) * 100 = 23.84%
+- Amazon: (6100 / 9060) * 100 = 67.33%
+```
 
-
-# Send Response to Frontend like :
-
-Portfolio Metrics:
+#### Send Response to Frontend
+```bash
+# Portfolio Metrics:
 ========================
-Total Portfolio Value: $9060
-Top-Performing Stock: Amazon (AMZN) - $6100
-Portfolio Distribution:
-  - Apple (AAPL): 8.83%
-  - Tesla (TSLA): 23.84%
-  - Amazon (AMZN): 67.33%
+- Total Portfolio Value: $9060
+
+- Top-Performing Stock: Amazon (AMZN) - $6100
+
+# Portfolio Distribution:
+- Apple (AAPL): 8.83%
+- Tesla (TSLA): 23.84%
+- Amazon (AMZN): 67.33%
 ========================
-
-
+```
 ## Frontend Technologies
-1. React.js: For creating the user interface.
-2. CSS: For styling the frontend.
-3. Axios: For making API requests.
+1. **React.js**: For creating the user interface.
+2. **CSS**: For styling the frontend.
+3. **Axios**: For making API requests.
 
 ## Backend Technologies
-1. Node.js: Backend runtime environment.
-2. Express.js: Web framework for APIs.
-3. MongoDB: Database to store user and stock information.
-4. JWT: For secure user authentication.
-5. bcryptjs: For password hashing.
-6. dotenv: For managing environment variables.
-7. Twelve Data API: For fetching real-time stock prices.
-8. CORS: Middleware for enabling cross-origin requests between frontend and backend.
+1. **Node.js**: Backend runtime environment.
+2. **Express.js**: Web framework for APIs.
+3. **MongoDB**: Database to store user and stock information.
+4. **JWT**: For secure user authentication.
+5. **bcryptjs**: For password hashing.
+6. **dotenv**: For managing environment variables.
+7. **Twelve Data API**: For fetching real-time stock prices.
+8. **CORS**: Middleware for enabling cross-origin requests between frontend and backend.
 
-## Limitations
-1. Limited API requests per day due to the using external stock price API's form TwelveData.com(Not premium).
+
+# Limitations
+1. Limited API requests per day due to using external stock price APIs from TwelveData.com (Not premium).
 2. Dependent on the availability of the Twelve Data API for real-time stock prices.
 
-## Installation and Setup
+# Installation and Setup
 
-### Backend part
-# Install dependencies
+## Backend Part
+
+#### Install Dependencies
+```bash
 cd backend
 npm install
+```
 
-# Set up environment variables in a .env file
-PORT = 1324
-KEY = a Simple Portfolio Tracker
-APIKEY = db523456236347c5a0d65bc5d37b6dad
-MONGODB = mongodb://localhost:27017/stock?directConnection=true
 
-# Start the server
+#### Set up environment variables in a .env file
+
+```bash
+PORT=1324
+KEY="a Simple Portfolio Tracker"
+APIKEY="db523456236347c5a0d65bc5d37b6dad"
+MONGODB="mongodb://localhost:27017/stock?directConnection=true"
+```
+#### Start the server
+```bash
 npm start
+```
 
+## Frontend part
 
-### Frontend part
-# Navigate to the frontend directory
+#### Navigate to the frontend directory
+```bash
 cd frontend
+```
 
-# Install dependencies.
+#### Install dependencies
+```bash
 npm install
-
-# Start the application.
+```
+#### Start the application
+```bash
 npm start
+```
 
-## API Key from TwelveData.com
-1. Twelve Data API Key: db523456236347c5a0d65bc5d37b6dad
+#### API Key from TwelveData.com
+- **Twelve Data API Key :** db523456236347c5a0d65bc5d37b6dad
 
-# Example API - sample API for to fetch data from external API from TwelveData.com
+- Example API - Sample API to Fetch Data from External API from TwelveData.com
 1. It fetches data that is updated minute by minute.
+[Sample API - Link](https://api.twelvedata.com/time_series?symbol=MSFT,AAPL,GOOGL,AMZN&interval=1day&outputsize=1&apikey=db523456236347c5a0d65bc5d37b6dad)
 
-[text](https://api.twelvedata.com/time_series?symbol=MSFT,AAPL,GOOGL,AMZN&interval=1day&outputsize=1&apikey=db523456236347c5a0d65bc5d37b6dad)
-
-
-# Backend Structure
-
+## Backend Structure
+```bash
 backend/
 ├── controllers/
 │   ├── stock.js
@@ -500,8 +547,10 @@ backend/
 └── package.json
 
 
-# Frontend Structure
+```
 
+## Frontend Structure
+```bash
 frontend/
 ├── pages/
 │   ├── AddStock.jsx
@@ -520,10 +569,11 @@ frontend/
 └── package-lock.json
 
 
-## Sample companies
+```
 
-# Technology Companies:
+# Sample Companies
 
+### Technology Companies:
 1. GOOGL - Alphabet Inc. (Google)
 2. MSFT - Microsoft Corporation
 3. TSLA - Tesla, Inc.
@@ -531,34 +581,34 @@ frontend/
 5. NFLX - Netflix, Inc.
 6. NVDA - NVIDIA Corporation
 
-# Consumer Goods:
+### Consumer Goods:
 7. PG - Procter & Gamble Co.
 8. KO - Coca-Cola Company
 9. PEP - PepsiCo, Inc.
 10. WMT - Walmart Inc.
 
-# Financials:
+### Financials:
 11. JPM - JPMorgan Chase & Co.
 12. BAC - Bank of America Corporation
 13. C - Citigroup Inc.
 14. GS - Goldman Sachs Group, Inc.
 
-# Energy:
-16. XOM - Exxon Mobil Corporation
-17. CVX - Chevron Corporation
-18. SLB - Schlumberger Limited
+### Energy:
+15. XOM - Exxon Mobil Corporation
+16. CVX - Chevron Corporation
+17. SLB - Schlumberger Limited
 
-# Healthcare:
-19. JNJ - Johnson & Johnson
-20. PFE - Pfizer Inc.
-21. MRK - Merck & Co., Inc.
+### Healthcare:
+18. JNJ - Johnson & Johnson
+19. PFE - Pfizer Inc.
+20. MRK - Merck & Co., Inc.
 
-# Industrials:
-22. BA - Boeing Company
-23. CAT - Caterpillar Inc.
-24. GE - General Electric Company
+### Industrials:
+21. BA - Boeing Company
+22. CAT - Caterpillar Inc.
+23. GE - General Electric Company
 
-# Miscellaneous:
-25. AMAT - Applied Materials, Inc.
-26. ADBE - Adobe Inc.
-27. INTC - Intel Corporation
+### Miscellaneous:
+24. AMAT - Applied Materials, Inc.
+25. ADBE - Adobe Inc.
+26. INTC - Intel Corporation
